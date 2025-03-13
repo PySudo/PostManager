@@ -32,9 +32,9 @@ class ManageDB:
         json = (await self.exec('SELECT posts FROM channels WHERE id = ?', (username,), True))[0]
         return loads(json)
 
-    async def addPost(self, channel, message_id, subtitle):
+    async def addPost(self, channel, message_id, title):
         posts = await self.getPosts(channel)
-        posts[subtitle] = message_id
+        posts[title] = message_id
         await self.exec('UPDATE channels SET posts = ? WHERE id = ?', (dumps(posts), channel,))
 
     async def getChannels(self):
