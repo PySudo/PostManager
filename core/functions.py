@@ -6,12 +6,9 @@ def isJoin(channel, user):
     if res['ok']:
         return res['result']['status'] != 'left'
 
-def checkJoin(user, channels):
-    ch = list()
-    for channel in channels:
-        if not isJoin(channel, user):
-            ch.append(channel)
-    return ch
+def checkJoin(user, channel):
+    if not isJoin(channel, user):
+        return channel
 
 def channelString(channels):
     return '\n'.join(i if i[0] == '@' else '@'+i for i in channels)
