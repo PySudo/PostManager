@@ -13,6 +13,9 @@ def checkJoin(user, channels):
             ch.append(channel)
     return ch
 
+def channelString(channels):
+    return '\n'.join(i if i[0] == '@' else '@'+i for i in channels)
+
 def getJoinText(channel):
     text = "❗️ لطفا اول توی کانال جوین شو :\n{}"
     return text.format(channel)
