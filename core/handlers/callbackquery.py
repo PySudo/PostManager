@@ -21,12 +21,6 @@ from .imports import (
 @bot.on(callback)
 @callbackDecorator
 async def Query(data, user, is_admin, user_info, channels, e):
-    if data.startswith('submit'):
-        ch = checkJoin(user, data.split('_')[1])
-        if ch:
-            mess = await e.edit(getJoinText(ch), buttons=submit(ch))
-            await db.setMessage(user, mess.id)
-            return
     m = user_info[2]
 
     if is_admin:
