@@ -8,7 +8,7 @@ class ManageDB:
         with connect(db_name) as conn:
             cursor = conn.cursor()
             cursor.execute('CREATE TABLE IF NOT EXISTS users(id INTEGER, s TEXT, m INTEGER, notif TEXT)')
-            cursor.execute('CREATE TABLE IF NOT EXISTS channels(id INTEGER, posts TEXT, notif TEXT)')
+            cursor.execute('CREATE TABLE IF NOT EXISTS channels(id INTEGER, posts TEXT, notif TEXT, admin TEXT)')
 
     async def exec(self, query, p=None, fetch_one=False, fetch_all=False):
         async with connect2(self.db_name) as db:
@@ -22,11 +22,14 @@ class ManageDB:
     async def addUser(self, user):
         return await self.exec("INSERT INTO users(id, notif) VALUES (?, '[]')", (user,))
 
-    async def addChannel(self, username):
-        await self.exec('INSERT INTO channels VALUES (?, \'{}\', \'[]\')', (username,))
+    async def addChannel(self, username, admin):
+        await self.exec('INSERT INTO channels VALUES (?, \'{}\', \'[]\', ?)', (username, admin,))
 
     async def deleteChannel(self, username):
         await self.exec('DELETE FROM channels WHERE id = ?', (username,))
+
+    async def getAdmin(self, username):
+        return (await self.exec('SELECT admin FROM channels WHERE id = ?', (username,), True))[0]
 
     async def getPosts(self, username):
         json = (await self.exec('SELECT posts FROM channels WHERE id = ?', (username,), True))[0]

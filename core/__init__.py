@@ -3,7 +3,7 @@ from .config import cfg
 from .database import ManageDB
 from .functions import *
 
-submit = [Button.inline('✅', 'submit')]
+submit = lambda channel: [Button.inline('✅', 'submit_'+str(channel))]
 menu = [
     [Button.inline('🔖 دریافت پست 🔖', 'getpost')],
     [Button.inline('ارسال پست 📌', 'sendpost'), Button.inline('📝 پست های من', 'myposts')],

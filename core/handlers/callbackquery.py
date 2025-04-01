@@ -21,10 +21,10 @@ from .imports import (
 @bot.on(callback)
 @callbackDecorator
 async def Query(data, user, is_admin, user_info, channels, e):
-    if data != 'submit':
-        ch = checkJoin(user, channels)
+    if data.startswith('submit'):
+        ch = checkJoin(user, data.split('_')[1])
         if ch:
-            mess = await e.edit(getJoinText(ch), buttons=submit)
+            mess = await e.edit(getJoinText(ch), buttons=submit(ch))
             await db.setMessage(user, mess.id)
             return
     m = user_info[2]
@@ -36,7 +36,7 @@ async def Query(data, user, is_admin, user_info, channels, e):
                 await db.setStep(user, str())
                 await e.edit('👇🏼 برگشتیم ، از دکمه های زیر استفاده کن :', buttons=panel)
             case 'addchannel':
-                await edit(user, m, '⚙️ یوزرنیم چنلی که میخوای اضافه کنی رو ارسال کن :', back_admin)
+                await edit(user, m, '⚙️ یوزرنیم چنلی که میخوای اضافه کنی رو همراه با آیدی ادمین ارسال کن :\nمثال : @FuckingDaily @Py_Sudo', back_admin)
                 await db.setStep(user, data)
             case 'removechannel':
                 if channels:
@@ -75,7 +75,7 @@ async def Query(data, user, is_admin, user_info, channels, e):
     data_user = data.split('_')
     match data_user[0]:
         case 'submit':
-            ch = checkJoin(user, channels)
+            ch = checkJoin(user, data_user[1])
             if ch:
                 await e.answer('❌ هنوز جوین نشدی')
             else:
