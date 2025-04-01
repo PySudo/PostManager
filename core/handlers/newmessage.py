@@ -32,9 +32,9 @@ async def MessageHandler(text, user, message_id, is_admin, user_info, channels, 
                 try:
                     chat, message = data[1].split('_')
                     if '@'+chat in channels and message in (await db.getPosts('@'+chat)).values():
-                        ch = checkJoin(user, chat)
+                        ch = checkJoin(user, '@'+chat)
                         if ch:
-                            mess = await e.reply(getJoinText(ch), buttons=submit(chat))
+                            mess = await e.reply(getJoinText(ch), buttons=submit('@'+chat))
                             await db.setMessage(user, mess.id)
                             return
                         await bot.forward_messages(user, int(message), chat)
