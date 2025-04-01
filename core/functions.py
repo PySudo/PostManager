@@ -15,7 +15,7 @@ def channelString(channels):
 
 def getJoinText(channel):
     text = "❗️ لطفا اول توی کانال جوین شو :\n{}"
-    return text.format(channel)
+    return text.format(channel if '@' in channel else '@'+channel)
 
 def getLinkUser(username, data):
     username = username.replace('@', '')
