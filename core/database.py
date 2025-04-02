@@ -32,9 +32,8 @@ class ManageDB:
         return (await self.exec('SELECT admin FROM channels WHERE id = ?', (username,), True))[0]
 
     async def getPosts(self, username):
-        json = (await self.exec('SELECT posts FROM channels WHERE id = ?', (username,), True))
-        print('jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',json,username)
-        return loads(json[0])
+        json = (await self.exec('SELECT posts FROM channels WHERE id = ?', (username,), True))[0]
+        return loads(json)
 
     async def addPost(self, channel, message_id, title):
         posts = await self.getPosts(channel)
