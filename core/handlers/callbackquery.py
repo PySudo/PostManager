@@ -54,8 +54,6 @@ async def Query(data, user, is_admin, user_info, channels, e):
             links = getLink(channel, posts)
             await e.edit(buttons=createPostButton(links, page, channel))
 
-    data_admin = data.split('/')
-    match data_admin[0]:
         case 'yes':
             title = (await e.get_message()).message.splitlines()[-1].split(':')[1].strip()
             channel = data_admin[1]
@@ -67,7 +65,7 @@ async def Query(data, user, is_admin, user_info, channels, e):
             await e.answer('❌ پست اضافه نشد')
             await e.delete()
 
-    data_user = data.split('_')
+    data_user = data.split('/')
     match data_user[0]:
         case 'submit':
             ch = checkJoin(user, data_user[1])

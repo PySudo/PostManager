@@ -3,7 +3,7 @@ from .config import cfg
 from .database import ManageDB
 from .functions import *
 
-submit = lambda channel: [Button.inline('✅', 'submit_'+str(channel))]
+submit = lambda channel: [Button.inline('✅', 'submit/'+str(channel))]
 menu = [
     [Button.inline('🔖 دریافت پست 🔖', 'getpost')],
     [Button.inline('ارسال پست 📌', 'sendpost'), Button.inline('📝 پست های من', 'myposts')],
@@ -19,19 +19,19 @@ back = [Button.inline('🔙', 'back')]
 def channelsButton(channels):
     buttons = list()
     for i in channels:
-        buttons.append([Button.inline(i, 'channel_'+i)])
+        buttons.append([Button.inline(i, 'channel/'+i)])
     buttons.append(back_admin)
     return buttons
 
 def channelsButtonUser(channels):
     buttons = list()
     for i in channels:
-        buttons.append([Button.inline(i, 'uchannel_'+i)])
+        buttons.append([Button.inline(i, 'uchannel/'+i)])
     buttons.append(back)
     return buttons
 
 def createPostButton(links, page, channel, admin=True):
-    txt = 'page_' if admin else 'upage_'
+    txt = 'page/' if admin else 'upage/'
     key,value = list(links.keys()), list(links.values())
     buttons = list()
     idx1 = page*10
@@ -40,11 +40,11 @@ def createPostButton(links, page, channel, admin=True):
         buttons.append([Button.url(key[idx0:idx1][k], i)])
     if len(key) >= 11:
         if page == 1:
-            buttons.append([Button.inline('➡️', txt+str(page+1)+'_'+channel)])
+            buttons.append([Button.inline('➡️', txt+str(page+1)+'/'+channel)])
         elif key[idx1:]:
-            buttons.append([Button.inline('⬅️', txt+str(page-1)+'_'+channel), Button.inline('➡️', txt+str(page+1)+'_'+channel)])
+            buttons.append([Button.inline('⬅️', txt+str(page-1)+'/'+channel), Button.inline('➡️', txt+str(page+1)+'/'+channel)])
         else:
-            buttons.append([Button.inline('⬅️', txt+str(page-1)+'_'+channel)])
+            buttons.append([Button.inline('⬅️', txt+str(page-1)+'/'+channel)])
     if admin:
         buttons.append(back_admin)
     else:
