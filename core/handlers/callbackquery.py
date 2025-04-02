@@ -23,7 +23,7 @@ from .imports import (
 async def Query(data, user, is_admin, user_info, channels, e):
     m = user_info[2]
 
-    data_admin = data.split('_')
+    data_admin = data.split('/')
     match data_admin[0]:
         case 'backA':
             await db.setStep(user, str())

@@ -30,7 +30,7 @@ async def MessageHandler(text, user, message_id, is_admin, user_info, channels, 
                 await db.setStep(user, str())
             else:
                 try:
-                    chat, message = data[1].split('_')
+                    chat, message = data[1].split('/')
                     if '@'+chat in channels and message in (await db.getPosts('@'+chat)).values():
                         ch = checkJoin(user, '@'+chat)
                         if ch:
