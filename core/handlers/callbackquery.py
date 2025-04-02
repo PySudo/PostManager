@@ -54,6 +54,8 @@ async def Query(data, user, is_admin, user_info, channels, e):
             links = getLink(channel, posts)
             await e.edit(buttons=createPostButton(links, page, channel))
 
+    data_admin = data.split('/')
+    match data_admin[0]:
         case 'yes':
             title = (await e.get_message()).message.splitlines()[-1].split(':')[1].strip()
             channel = data_admin[1]

@@ -52,6 +52,6 @@ def createPostButton(links, page, channel, admin=True):
     return buttons
 
 def yes_no(channel, message_id):
-    return [Button.inline('✅', 'yes_'+channel+'_'+str(message_id)), Button.inline('❌', 'no_'+channel+'_'+str(message_id))]
+    return [Button.inline('✅', 'yes/'+channel+'/'+str(message_id)), Button.inline('❌', 'no/'+channel+'/'+str(message_id))]
 
 db = ManageDB(cfg.DB)
