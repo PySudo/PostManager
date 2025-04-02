@@ -64,7 +64,10 @@ async def MessageHandler(text, user, message_id, is_admin, user_info, channels, 
                     await db.setStep(user, str())
     else:
         username = ('@'+str(e.sender.username)).lower()
-        sub = '<b>'+text.splitlines()[0]+'</b>'
-        if username in channels:
-            admin = await db.getAdmin(username)
-            await bot.send_message(admin, f'‼️ <a href="https://t.me/{username[1:]}/{message_id}">پیام جدیدی</a>  از کانال {username} تشخیص داده شد\n👇🏼 برای اضافه کردنش به پست ها از دکمه های زیر استفاده کن.\nعنوان : {sub}', buttons=yes_no(username, message_id), link_preview=False)
+        try:
+            sub = '<b>'+text.splitlines()[0]+'</b>'
+            if username in channels:
+                admin = await db.getAdmin(username)
+                await bot.send_message(admin, f'‼️ <a href="https://t.me/{username[1:]}/{message_id}">پیام جدیدی</a>  از کانال {username} تشخیص داده شد\n👇🏼 برای اضافه کردنش به پست ها از دکمه های زیر استفاده کن.\nعنوان : {sub}', buttons=yes_no(username, message_id), link_preview=False)
+        except:
+            pass
