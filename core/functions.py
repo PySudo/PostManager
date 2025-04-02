@@ -19,7 +19,7 @@ def getJoinText(channel):
 
 def getLinkUser(username, data):
     username = username.replace('@', '')
-    return {k:f'https://t.me/{cfg.USERNAME}?start={username}_{i}' for k,i in data.items()}
+    return {k:f'https://t.me/{cfg.USERNAME}?start={username}/{i}' for k,i in data.items()}
 
 def getLink(username, data):
     username = username.replace('@', '')
